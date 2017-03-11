@@ -21,12 +21,38 @@ router.use(methodOverride(function(req, res){
 
 router.route('/savings')
 	.get(function(req, res, next) {
+		console.log(req.body);
         res.json({ message: 'Savings End Point' });
     })
 
 router.route('/savings/register')
-	.get(function(req, res, next){
+	.post(function(req, res, next){
+		console.log(req.body);
 		res.json({message: 'Register To Join Savings Group'});
+	})
+
+router.route('/savings/checkbalance')
+	.get(function(req, res, next){
+		console.log(req.body);
+		res.json({message: 'Check Balance Request'});
+	})
+
+router.route('/savings/requestloan')
+	.get(function(req, res, next){
+		console.log(req.body);
+		res.json({message: 'Request Loan'});
+	})
+
+router.route('/savings/processloanrequest')
+	.post(function(req, res, next){
+		console.log(req.body);
+		res.json({message: 'Process Loan Request'});
+	})
+
+router.route('/savings/contribution')
+	.post(function(req, res, next){
+		console.log(req.body);
+		res.json({message: 'Make Payment'});
 	})
 
 module.exports = router;
