@@ -27,8 +27,31 @@ router.route('/savings')
 
 router.route('/savings/register')
 	.post(function(req, res, next){
-		console.log(req.body);
-		res.json({message: 'Register To Join Savings Group'});
+  		var fbID = req.body.fb_id;
+  		var fName = req.body.fb_first_name;
+  		var lName = req.body.fb_last_name;
+  		var telephone = req.body.user_number;
+
+  		mongoose.model('Member').create({
+            fbID : fbID,
+            fName : fName,
+            lName :lName,
+            telephone: telephone
+        }, function (err, member) {
+
+              if (err) {
+                  res.send("Couldnot create record on the DB.");
+              } else {
+                  //Blob has been created
+                  console.log('POST creating new Citzen: ' + member);
+                  res.format({
+                    //JSON response will show the newly created citizen
+                    json: function(){
+                        res.json(member);
+                    }
+                });
+              }
+        })
 	})
 
 router.route('/savings/checkbalance')
