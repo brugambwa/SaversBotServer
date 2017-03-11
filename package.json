@@ -1,0 +1,28 @@
+{
+  "name": "saversbotserver",
+  "version": "1.0.0",
+  "description": "Savers Bot Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brugambwa/SaversBotServer.git"
+  },
+  "author": "Bobson Rugambwa <brugambw@andrew.cmu.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brugambwa/SaversBotServer/issues"
+  },
+  "homepage": "https://github.com/brugambwa/SaversBotServer#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
