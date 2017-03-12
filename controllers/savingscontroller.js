@@ -22,7 +22,6 @@ module.exports = {
                   console.log("Couldnot create record on the DB.");
               } else {
                   console.log("Created.");
-                });
               }
         })
 	}
