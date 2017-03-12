@@ -4,6 +4,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+
 router.use(function(req, res, next) {
 	// do logging
 	console.log('Something is happening.');
@@ -41,28 +42,7 @@ router.route('/savings')
 
 router.route('/savings/register')
 	.post(function(req, res, next){
-  		var fbID = req.body.fb_id;
-  		var fName = req.body.fb_first_name;
-  		var lName = req.body.fb_last_name;
-  		var telephone = req.body.user_number;
-
-  		mongoose.model('Member').create({
-            fbID : fbID,
-            fName : fName,
-            lName :lName,
-            telephone: telephone
-        }, function (err, member) {
-              if (err) {
-                  res.send("Couldnot create record on the DB.");
-              } else {
-                  res.format({
-                    //JSON response will show the newly created citizen
-                    json: function(){
-                        res.json(member);
-                    }
-                });
-              }
-        })
+  		
 	})
 
 router.route('/savings/checkbalance')
