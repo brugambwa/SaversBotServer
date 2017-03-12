@@ -1,13 +1,10 @@
 var express = require('express');
-var request = require('request');
 var mongoose = require('mongoose');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
 var PAGE_ACCESS_TOKEN = "EAAIyrDyMCOkBAN9VdNlXJjqgSLZAb0SpLDHNFv34AtSvUrs98OnayZBtxknNZCCqSKZBzPuMIMP2Ea6ROIPN13VwGtvmsZB8ds9DsrJXV8PdZAdbnZCYk77tM9RMZCBOkG3xF989KGHMA0Nad9Dw1QYednZAlTq9ZAIiROnDGcjMkpTQZDZD"
-
-
 
 router.use(function(req, res, next) {
 	// do logging
