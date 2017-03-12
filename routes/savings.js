@@ -4,6 +4,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+
 router.use(function(req, res, next) {
 	// do logging
 	console.log('Something is happening.');
@@ -38,7 +39,6 @@ router.route('/savings/register')
             lName :lName,
             telephone: telephone
         }, function (err, member) {
-
               if (err) {
                   res.send("Couldnot create record on the DB.");
               } else {
