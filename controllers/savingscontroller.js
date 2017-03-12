@@ -4,16 +4,30 @@ const PAGE_ACCESS_TOKEN = "EAAIyrDyMCOkBAN9VdNlXJjqgSLZAb0SpLDHNFv34AtSvUrs98Ona
 
 module.exports = {
 	
-	registerUser: function(event)
+	registerUser: function(data)
 	{
-	    var fromId = event.sender.id;
-	    var myId = event.recipient.id;
-	    var timestamp = event.timestamp;
-	    var message = event.message;
 
-	    console.log("Page %d received message from user %d." , myId, fromId);
-	    console.log("    Message: " + JSON.stringify(message));
+		var fbID = data.fb_id;
+  		var fName = data.fb_first_name;
+  		var lName = data.fb_last_name;
+  		var telephone = data.user_number;
 
-	    this.processMessage(fromId, myId, timestamp, message)
+  		mongoose.model('Member').create({
+            fbID : fbID,
+            fName : fName,
+            lName :lName,
+            telephone: telephone
+        }, function (err, member) {
+              if (err) {
+                  res.send("Couldnot create record on the DB.");
+              } else {
+                  res.format({
+                    //JSON response will show the newly created citizen
+                    json: function(){
+                        res.json(member);
+                    }
+                });
+              }
+        })
 	}
 }

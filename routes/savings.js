@@ -42,7 +42,8 @@ router.route('/savings')
 
 router.route('/savings/register')
 	.post(function(req, res, next){
-  		
+		var data = req.body;
+		savings.registerUser(data);
 	})
 
 router.route('/savings/checkbalance')
@@ -55,29 +56,29 @@ router.route('/savings/checkbalance')
 	        // Iterate over each entry - there may be multiple if batched
 	        data.entry.forEach(function(entry)
 	        {
-	        var pageID = entry.id;
-	        var timestamp = entry.time;
+		        var pageID = entry.id;
+		        var timestamp = entry.time;
 
-	        // Iterate over each messaging event
-	        entry.messaging.forEach(function(event)
-	        {
-	            if (event.message)
-	            {
-	                if (event.message.is_echo)
-	                      console.log("Bot received message written event");
-	                else
-	                      console.log("Bot received message " + event.message.text);
-	                      //functs.receivedMessage(event);
-	            }
-	            else  if (event.delivery)
-	              console.log("Bot received delivery event");
-	            else  if (event.read)
-	              console.log("Bot received message-was-read event");
-	            else  if (event.postback)
-	              functs.doPostback(event);
-	            else
-	              console.log("Bot received unknown EVENT: ");
-	          });
+		        // Iterate over each messaging event
+		        entry.messaging.forEach(function(event)
+		        {
+		            if (event.message)
+		            {
+		                if (event.message.is_echo)
+		                      console.log("Bot received message written event");
+		                else
+		                      console.log("Bot received message " + event.message.text);
+		                      //functs.receivedMessage(event);
+		            }
+		            else  if (event.delivery)
+		              console.log("Bot received delivery event");
+		            else  if (event.read)
+		              console.log("Bot received message-was-read event");
+		            else  if (event.postback)
+		              functs.doPostback(event);
+		            else
+		              console.log("Bot received unknown EVENT: ");
+		          });
 	        });
 	    }
 	    else
