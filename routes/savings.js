@@ -40,79 +40,20 @@ router.route('/savings')
 	    }
 	    else
 	    {
-	        res.send('Hello world')
+	        res.json({message: 'Savers Bot API EndPoints'});
 	    }
 	})
 
 router.route('/savings/register')
 	.post(function(req, res, next){
-		var fbID = req.body.fb_id;
-  		var fName = req.body.fb_first_name;
-  		var lName = req.body.fb_last_name;
-  		var telephone = req.body.user_number;
-
-  		mongoose.model('Member').create({
-            fbID : fbID,
-            fName : fName,
-            lName :lName,
-            telephone: telephone
-        }, function (err, member) {
-              if (err) {
-                  res.send("Couldnot create record on the DB.");
-              } else {
-                  res.format({
-                    //JSON response will show the newly created citizen
-                    json: function(){
-                        res.json(member);
-                    }
-                });
-              }
-        })
+		console.log(req.body);
+		res.json({message: 'Register User'});
 	})
 
 router.route('/savings/checkbalance')
 	.get(function(req, res, next){
-		var data = req.body;
-
-	    // Make sure this is a page subscription
-	    if (data.object === 'page')
-	    {
-	        // Iterate over each entry - there may be multiple if batched
-	        data.entry.forEach(function(entry)
-	        {
-		        var pageID = entry.id;
-		        var timestamp = entry.time;
-
-		        // Iterate over each messaging event
-		        entry.messaging.forEach(function(event)
-		        {
-		            if (event.message)
-		            {
-		                if (event.message.is_echo)
-		                      console.log("Bot received message written event");
-		                else
-		                      console.log("Bot received message " + event.message.text);
-		                      //functs.receivedMessage(event);
-		            }
-		            else  if (event.delivery)
-		              console.log("Bot received delivery event");
-		            else  if (event.read)
-		              console.log("Bot received message-was-read event");
-		            else  if (event.postback)
-		              functs.doPostback(event);
-		            else
-		              console.log("Bot received unknown EVENT: ");
-		          });
-	        });
-	    }
-	    else
-	    {
-	      console.log("Bot received unknown OBJECT (not page): ", data.object);
-	    }
-
-	    // All good, sent response status 200
-
-	    res.sendStatus(200)
+		console.log(req.body);
+		res.json({message: 'Check Balance'});
 	})
 
 router.route('/savings/requestloan')
