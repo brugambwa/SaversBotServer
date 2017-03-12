@@ -21,36 +21,23 @@ router.use(methodOverride(function(req, res){
 
 router.route('/savings')
 	.get(function(req, res, next) {
-		console.log("/webhook Verify Token");
-
-    	// Facebook verification
-
-    	console.log("Verify Token sent");
+		// Facebook verification
     	if (req.query['hub.mode'] === 'subscribe')
     	{
-	        console.log("Subscribe Verify Token, check: " + req.query['hub.verify_token']);
 	        if (req.query['hub.verify_token'] === 'YOUR_TOKEN')
 	        {
-	            console.log("Validating webhook");
 	            res.send(req.query['hub.challenge'])
 	        }
 	        else
 	        {
-	            console.log("Oh No, invalid Verify Token: " + req.query['hub.verify_token']);
 	            res.send("Error, wrong token.");
 	        }
 	    }
 	    else
 	    {
-	        console.log("not subscribing");
 	        res.send('Hello world')
 	    }
 	})
-
-
-
-
-
 
 router.route('/savings/register')
 	.post(function(req, res, next){
@@ -80,8 +67,47 @@ router.route('/savings/register')
 
 router.route('/savings/checkbalance')
 	.get(function(req, res, next){
-		console.log(req.body);
-		res.json({message: 'Check Balance Request'});
+		var data = req.body;
+
+	    // Make sure this is a page subscription
+	    if (data.object === 'page')
+	    {
+	        // Iterate over each entry - there may be multiple if batched
+	        data.entry.forEach(function(entry)
+	        {
+	        var pageID = entry.id;
+	        var timestamp = entry.time;
+
+	        // Iterate over each messaging event
+	        entry.messaging.forEach(function(event)
+	        {
+	            if (event.message)
+	            {
+	                if (event.message.is_echo)
+	                      console.log("Bot received message written event");
+	                else
+	                      console.log("Bot received message " + event.message.text);
+	                      //functs.receivedMessage(event);
+	            }
+	            else  if (event.delivery)
+	              console.log("Bot received delivery event");
+	            else  if (event.read)
+	              console.log("Bot received message-was-read event");
+	            else  if (event.postback)
+	              functs.doPostback(event);
+	            else
+	              console.log("Bot received unknown EVENT: ");
+	          });
+	        });
+	    }
+	    else
+	    {
+	      console.log("Bot received unknown OBJECT (not page): ", data.object);
+	    }
+
+	    // All good, sent response status 200
+
+	    res.sendStatus(200)
 	})
 
 router.route('/savings/requestloan')
