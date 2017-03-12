@@ -7,7 +7,6 @@ var saversAPI = express();
 
 var db = require('./models/database');
 var sGroup    = require('./models/savingsgroup');
-var savings = require('./controllers/savingscontroller');
 
 var routes = require('./routes/savings');
 
