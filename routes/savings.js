@@ -45,7 +45,7 @@ router.route('/savings/register')
 	.post(function(req, res, next){
 		var data = req.body;
 		savings.registerUser();
-		res.json({'member: Done'});
+		res.json({message: 'Registration Complete'});
 	})
 
 router.route('/savings/checkbalance')
@@ -96,7 +96,7 @@ router.route('/savings/checkbalance')
 router.route('/savings/requestloan')
 	.get(function(req, res, next){
 		console.log(req.body);
-		res.json({message: 'Request Loan'});
+		res.json({message: 'Process Loan Request'});
 	})
 
 router.route('/savings/processloanrequest')
