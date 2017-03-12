@@ -44,7 +44,8 @@ router.route('/savings')
 router.route('/savings/register')
 	.post(function(req, res, next){
 		var data = req.body;
-		savings.registerUser(req, res);
+		savings.registerUser();
+		res.json({'member: Done'});
 	})
 
 router.route('/savings/checkbalance')

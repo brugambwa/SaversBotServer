@@ -7,7 +7,6 @@ module.exports = {
 	
 	registerUser: function(req, res)
 	{
-
 		var fbID = req.body.fb_id;
   		var fName = req.body.b_first_name;
   		var lName = req.body.b_last_name;
@@ -20,13 +19,9 @@ module.exports = {
             telephone: telephone
         }, function (err, member) {
               if (err) {
-                  res.send("Couldnot create record on the DB.");
+                  console.log("Couldnot create record on the DB.");
               } else {
-                  res.format({
-                    //JSON response will show the newly created citizen
-                    json: function(){
-                        res.json(member);
-                    }
+                  console.log("Created.");
                 });
               }
         })
