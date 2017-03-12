@@ -4,8 +4,6 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-var PAGE_ACCESS_TOKEN = "EAAIyrDyMCOkBAN9VdNlXJjqgSLZAb0SpLDHNFv34AtSvUrs98OnayZBtxknNZCCqSKZBzPuMIMP2Ea6ROIPN13VwGtvmsZB8ds9DsrJXV8PdZAdbnZCYk77tM9RMZCBOkG3xF989KGHMA0Nad9Dw1QYednZAlTq9ZAIiROnDGcjMkpTQZDZD"
-
 router.use(function(req, res, next) {
 	// do logging
 	console.log('Something is happening.');
@@ -23,40 +21,46 @@ router.use(methodOverride(function(req, res){
 
 router.route('/savings')
 	.get(function(req, res, next) {
-		// Facebook verification
-    	if (req.query['hub.mode'] === 'subscribe')
-    	{
-	        if (req.query['hub.verify_token'] === 'YOUR_TOKEN')
-	        {
-	            res.send(req.query['hub.challenge'])
-	        }
-	        else
-	        {
-	            res.send("Error, wrong token.");
-	        }
-	    }
-	    else
-	    {
-	        res.json({message: 'Savers Bot API EndPoints'});
-	    }
-	})
+		console.log(req.body);
+        res.json({ message: 'Savings End Point' });
+    })
 
 router.route('/savings/register')
 	.post(function(req, res, next){
-		console.log(req.body);
-		res.json({message: 'Register User'});
+  		var fbID = req.body.fb_id;
+  		var fName = req.body.fb_first_name;
+  		var lName = req.body.fb_last_name;
+  		var telephone = req.body.user_number;
+
+  		mongoose.model('Member').create({
+            fbID : fbID,
+            fName : fName,
+            lName :lName,
+            telephone: telephone
+        }, function (err, member) {
+              if (err) {
+                  res.send("Couldnot create record on the DB.");
+              } else {
+                  res.format({
+                    //JSON response will show the newly created citizen
+                    json: function(){
+                        res.json(member);
+                    }
+                });
+              }
+        })
 	})
 
 router.route('/savings/checkbalance')
 	.get(function(req, res, next){
 		console.log(req.body);
-		res.json({message: 'Check Balance'});
+		res.json({message: 'Check Balance Request'});
 	})
 
 router.route('/savings/requestloan')
 	.get(function(req, res, next){
 		console.log(req.body);
-		res.json({message: 'Process Loan Request'});
+		res.json({message: 'Request Loan'});
 	})
 
 router.route('/savings/processloanrequest')
