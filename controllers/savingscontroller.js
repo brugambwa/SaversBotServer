@@ -5,13 +5,13 @@ const PAGE_ACCESS_TOKEN = "EAAIyrDyMCOkBAN9VdNlXJjqgSLZAb0SpLDHNFv34AtSvUrs98Ona
 
 module.exports = {
 	
-	registerUser: function(data)
+	registerUser: function(req, res)
 	{
 
-		var fbID = data.fb_id;
-  		var fName = data.fb_first_name;
-  		var lName = data.fb_last_name;
-  		var telephone = data.user_number;
+		var fbID = req.body.fb_id;
+  		var fName = req.body.b_first_name;
+  		var lName = req.body.b_last_name;
+  		var telephone = req.body.user_number;
 
   		mongoose.model('Member').create({
             fbID : fbID,
